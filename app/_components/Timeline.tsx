@@ -8,31 +8,15 @@ import TweetInputBox from "./TweetInputBox";
 import CreateTweetButton from "./CreateTweetButton";
 import NewTweetSection from "./NewTweetSection";
 import prisma from "@/prisma/client";
+import { getAllPosts } from "../actions/posts";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/authOptions";
 
 const Timeline = async() => {
-  // const [allTweets, setAllTweets] = useState<PostType[] | null>(null)
-  
 
-  
-
-  // useEffect(() => {
-  //   const getTweets = async () => {
-  //     try {
-  //       const response = await axios.get<PostType[]>("/api/tweets");
-  //       const tweets = response.data
-  //       setAllTweets(tweets)
-  //     } catch (error) {
-  //       console.log(" Error");
-  //       throw new Error("Error");
-  //     }
-  //   };
-
-
-
-  //   const tweets = getTweets();
-  // }, []);
-
-  const allTweets = await prisma.post.findMany()
+  const allPosts = await getAllPosts()
+  const session = await getServerSession(authOptions)
+  const loggedInUserId = await session?.user.id
 
   return (
     <div className=" w-6/12 border-l border-r border-zinc-700 h-full min-h-screen ">
@@ -46,12 +30,16 @@ const Timeline = async() => {
 
       {/* List of tweets */}
       {
-        allTweets?.map((tweet) => (
-          <Post key={tweet.id} post={tweet} />
-        ))
+        allPosts?.map((post) => {
+          const isLiked = post.likes.some(item => item.hasOwnProperty('userId') && item.userId === loggedInUserId);
+          const isBookmarked = post.bookmarks.some(item => item.hasOwnProperty('userId') && item.userId === loggedInUserId);
+          return (<Post key={post.id} post={post} isLiked={isLiked} isBookmarked={isBookmarked} />)
+        }
+          
+        )
       }
     </div>
   );
 };
-
+export const revalidate = 0;
 export default Timeline;

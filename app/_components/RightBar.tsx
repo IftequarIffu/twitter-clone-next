@@ -1,8 +1,11 @@
 import React from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { RxAvatar } from "react-icons/rx";
+import { getAllUsers } from "../actions/users";
+import { follow, unfollow, isUserFollowedByMe } from "../actions/follow";
+import FollowButton from "./FollowButton";
 
-const RightBar = () => {
+const RightBar = async () => {
   function formatNumber(number: number) {
     if (number < 1000) {
       return number.toString(); // Return as is if less than 1000
@@ -31,25 +34,49 @@ const RightBar = () => {
     },
   ];
 
-  const userDetails = [
-    {
-      username: "johntweets",
-      name: "JohnSmith",
-    },
-    {
-      username: "urstrulymahesh",
-      name: "MaheshBabu",
-    },
-    {
-      username: "iamsrk",
-      name: "ShahRukhKhan",
-    },
-  ];
+  // const userDetails = [
+  //   {
+  //     username: "johntweets",
+  //     name: "JohnSmith",
+  //   },
+  //   {
+  //     username: "urstrulymahesh",
+  //     name: "MaheshBabu",
+  //   },
+  //   {
+  //     username: "iamsrk",
+  //     name: "ShahRukhKhan",
+  //   },
+  //   {
+  //     username: "iamsrk",
+  //     name: "ShahRukhKhan",
+  //   },
+  //   {
+  //     username: "iamsrk",
+  //     name: "ShahRukhKhan",
+  //   },
+  //   {
+  //     username: "iamsrk",
+  //     name: "ShahRukhKhan",
+  //   },
+  //   {
+  //     username: "iamsrk",
+  //     name: "ShahRukhKhan",
+  //   },
+  //   {
+  //     username: "iamsrk",
+  //     name: "ShahRukhKhan",
+  //   },
+  // ];
+
+  const userDetails = await getAllUsers();
+
+  
 
   return (
     <div className=" w-4/12 p-4 px-6 flex flex-col h-screen min-h-full space-y-4 sticky top-0">
       {/* Search bar */}
-      <div className="flex items-center space-x-2 bg-zinc-900 px-4 py-2 rounded-3xl">
+      {/* <div className="flex items-center space-x-2 bg-zinc-900 px-4 py-2 rounded-3xl">
         <div>
           <AiOutlineSearch />
         </div>
@@ -59,10 +86,10 @@ const RightBar = () => {
             placeholder="Search"
           />
         </div>
-      </div>
+      </div> */}
 
       {/* What's happening */}
-      <div className="flex flex-col space-y-2 bg-zinc-900  rounded-3xl">
+      {/* <div className="flex flex-col space-y-2 bg-zinc-900  rounded-3xl">
         <h1 className="font-semibold px-4 pt-3 text-xl">
           What&apos;s happening
         </h1>
@@ -81,13 +108,17 @@ const RightBar = () => {
             </p>
           </div>
         ))}
-      </div>
+      </div> */}
 
       {/* Who to Follow */}
       <div className="flex flex-col  space-y-3  bg-zinc-900  rounded-3xl">
         <h1 className="font-semibold px-4 pt-3 text-xl mt-1">Who to Follow</h1>
 
-        {userDetails.map((user) => (
+        {userDetails.map(async(user) => {
+
+          const isUserFollowed = await isUserFollowedByMe(user.id)
+
+          return (
           <div
             key={user.username}
             className="flex items-center px-4 py-3 rounded-3xl justify-between space-x-2 hover:bg-zinc-700 hover:cursor-pointer"
@@ -97,20 +128,21 @@ const RightBar = () => {
                 <RxAvatar size={38} />
               </div>
               <div className="flex-col items-center">
-                <h1 className="">{user.username}</h1>
+                <h1 className="">{user.name}</h1>
                 <p className="font-thin text-sm text-zinc-300 tracking-wider">
-                  @{user.name}
+                  @{user.username}
                 </p>
               </div>
             </div>
             {/* Follow Button */}
             <div className="flex justify-end">
-              <div className="bg-white text-black font-medium hover:bg-opacity-70 hover:cursor-pointer rounded-3xl py-1 px-4">
+              <FollowButton idToFollow={user.id} isUserFollowed={isUserFollowed as boolean} />
+              {/* <button onClick={(e) => followMethod(e, user.id)} className="bg-white text-black font-medium hover:bg-opacity-70 hover:cursor-pointer rounded-3xl py-1 px-4">
                 Follow
-              </div>
+              </button> */}
             </div>
           </div>
-        ))}
+        )})}
       </div>
     </div>
   );

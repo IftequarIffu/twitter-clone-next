@@ -11,13 +11,20 @@ export const tweetSchema = z.object({
   post: z.string().min(1, "Description is required").max(65535),
 });
 
-
+// Get all tweets
 export const GET = async(req: NextRequest) => {
 
-    const tweets = await prisma.post.findMany()
+    const tweets = await prisma.post.findMany({
+        include: {
+            comments: true,
+            likes: true,
+            bookmarks: true,
+          }
+    })
     return NextResponse.json(tweets)
 }
 
+// Create a tweet
 export const POST = async(req: NextRequest) => {
 
     const session = await getServerSession(authOptions)
@@ -34,7 +41,8 @@ export const POST = async(req: NextRequest) => {
                 connect: {
                     id: session?.user.id
                 }
-            }
+            },
+
         }
     })
 

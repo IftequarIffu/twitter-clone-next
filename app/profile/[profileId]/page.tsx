@@ -4,17 +4,68 @@ import Post from "@/app/_components/Post";
 import GoBackButton from "@/app/_components/GoBackButton";
 import prisma from "@/prisma/client";
 import NavList from "./NavList";
+import ProfileMainSection from "./ProfileMainSection";
+import { Like, Post as PostType } from "@prisma/client";
 
-const UserProfilePage = async ({
+const UserProfilePage = async({
   params: { profileId },
 }: {
   params: { profileId: string };
 }) => {
+
+
   const myTweets = await prisma.post.findMany({
-    where: {
-      userId: profileId,
-    },
-  });
+        where: {
+          userId: profileId,
+        },
+        include: {
+          comments: true,
+          likes: true,
+          bookmarks: true,
+        },
+      });
+
+
+    const likes = await prisma.like.findMany({
+      where: {
+        userId: profileId,
+      },
+      include: {
+        post: {
+          include: {
+            comments: true,
+            likes: true,
+            bookmarks: true,
+          }
+        }
+      }
+    })
+
+    let tweetsThatILiked: PostType[] = []
+    likes.forEach((like) => {
+      tweetsThatILiked.push(like.post)
+    })
+
+
+    const replies = await prisma.comment.findMany({
+      where: {
+        userId: profileId,
+      },
+      include: {
+        post: {
+          include: {
+            comments: true,
+            likes: true,
+            bookmarks: true,
+          }
+        }
+      }
+    })
+
+    let tweetsThatIReplied: PostType[] = []
+    replies.forEach((reply) => {
+      tweetsThatIReplied.push(reply.post)
+    })
 
   return (
     <div className=" w-6/12 border-l border-r border-zinc-700 h-full min-h-screen ">
@@ -25,7 +76,7 @@ const UserProfilePage = async ({
           <GoBackButton />
           <div>
             <h1 className="font-bold">iffu</h1>
-            <h1 className="text-xs font-thin">244 posts</h1>
+            <h1 className="text-xs font-thin">{myTweets.length} posts</h1>
           </div>
         </div>
       </div>
@@ -53,14 +104,8 @@ const UserProfilePage = async ({
         </div>
       </div>
 
-      {/* NavList of profile page (Posts, Replies, Likes) */}
-      <NavList />
-
-      {/* User's posts */}
-
-      {myTweets?.map((tweet) => (
-        <Post key={tweet.id} post={tweet} />
-      ))}
+      <ProfileMainSection myTweets={myTweets} likedTweets={tweetsThatILiked as any} repliedTweets={tweetsThatIReplied as any} />
+      
     </div>
   );
 };

@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 
-const TweetInputBox = () => {
+const TweetInputBox = ({ placeholder }: { placeholder: string}) => {
 
     const [tweet, setTweet] = useState("");
 
@@ -41,15 +41,15 @@ const TweetInputBox = () => {
 
   return (
 
-    <div className="mt-6">
+    <div className="mt-3">
           <textarea
             cols={40}
             rows={1}
             ref={textAreaRef}
             value={tweet}
             onChange={handleChange}
-            className="bg-transparent text-xl focus:border-none overflow-hidden focus:outline-none resize-none"
-            placeholder="What is happening?!"
+            className="bg-transparent text-md focus:border-none overflow-hidden focus:outline-none resize-none"
+            placeholder={placeholder}
           />
         </div>
   )

@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+textarea::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: black;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: black;
+}
+
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

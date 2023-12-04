@@ -5,6 +5,7 @@ import React from "react";
 import { FaXTwitter } from "react-icons/fa6";
 import { GoHome } from "react-icons/go";
 import {  AiOutlineBell } from "react-icons/ai";
+import { FaRegBookmark } from "react-icons/fa";
 import { BiEnvelope, BiDotsHorizontalRounded, BiLogOut, BiLogIn } from "react-icons/bi";
 import { HiOutlineUser } from "react-icons/hi2";
 import { RxAvatar } from "react-icons/rx";
@@ -18,14 +19,15 @@ const LeftBar = () => {
       title: "Home",
       Icon: GoHome,
     },
-    {
-      title: "Notifications",
-      Icon: AiOutlineBell,
-    },
-    {
-      title: "Messages",
-      Icon: BiEnvelope,
-    }
+
+    // {
+    //   title: "Notifications",
+    //   Icon: AiOutlineBell,
+    // },
+    // {
+    //   title: "Messages",
+    //   Icon: BiEnvelope,
+    // }
     // {
     //   title: "Profile",
     //   icon: HiOutlineUser,
@@ -54,16 +56,22 @@ const LeftBar = () => {
                 session && <LeftBarNavLink title={"Profile"} Icon={HiOutlineUser} linkTo={`/profile/${session.user!.id}`}/>
               }
               {
+                session && <LeftBarNavLink title={"Bookmarks"} Icon={FaRegBookmark} linkTo={`/profile/${session.user!.id}/bookmarks`}/>
+              }
+              {
                 session && <LeftBarNavLink title={"Logout"} Icon={BiLogOut} linkTo="/api/auth/signout" />
               }
               {
                 !session && <LeftBarNavLink title={"Login"} Icon={BiLogIn} linkTo="/api/auth/signin"/>
               }
-              <Link href={"/new-post"}>
+              {
+                session && <Link href={"/new-post"}>
                 <div className="rounded-3xl text-center py-3 bg-primary hover:bg-opacity-70">
                   Tweet
                 </div>
               </Link>
+              }
+              
             </div>
             {/* <LoginModal /> */}
         </div>
@@ -78,7 +86,7 @@ const LeftBar = () => {
           </div>
           <div className="flex-col items-center">
             <h1 className="">{session ? session.user.name : "iffu"}</h1>
-            <p className="font-thin text-sm text-zinc-300 tracking-wider">@IftequarAhmed</p>
+            <p className="font-thin text-sm text-zinc-300 tracking-wider">@{session.user.name}</p>
           </div>
           <div className="ps-6">
             <BiDotsHorizontalRounded  size={20}/>

@@ -2,12 +2,14 @@
 import React from "react";
 import { useState } from "react";
 
-const navList = [{ title: "Posts" }, { title: "Replies" }, { title: "Likes" }];
+
 
 // NavList which contains tabs for Posts, Replies, Likes in profile page
 
-const NavList = () => {
-  const [selectedTab, setSelectedTab] = useState("posts");
+const NavList = ({ selectedTab, setSelectedTab } : { selectedTab: string, setSelectedTab: React.Dispatch<React.SetStateAction<string>> }) => {
+
+  const navList = [{ title: "Posts" }, { title: "Replies" }, { title: "Likes" }];
+  
   return (
     <div className="px-4 mt-4 border-b border-zinc-300 flex justify-around items-center">
       {navList.map((navItem) => (

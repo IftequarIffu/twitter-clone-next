@@ -3,6 +3,7 @@ import React from 'react'
 import axios from 'axios'
 import useAutosizeTextArea from "./useAutosizeTextArea";
 import { useRef, useState } from "react";
+import { createPost } from '../actions/posts';
 
 
 
@@ -25,18 +26,8 @@ const NewTweetSection = () => {
       const createTweet = async (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
       ) => {
-        try {
-          const payload = {
-            post: tweet,
-          };
-          const response = await axios.post("/api/tweets", payload);
-          console.log(response.data);
-          window.location.reload();
-          
-        } catch (error) {
-          console.log("Some Error occured");
-          throw new Error("error");
-        }
+        const newPost = await createPost(tweet)
+        setTweet("")
       };
 
 
