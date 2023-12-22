@@ -12,6 +12,8 @@ import { RxAvatar } from "react-icons/rx";
 import AuthModal from "./AuthModal";
 import { useSession } from "next-auth/react";
 import LeftBarNavLink from "./LeftBarNavLink";
+import { signOut } from "next-auth/react";
+
 
 const LeftBar = () => {
   const NavList = [
@@ -69,7 +71,12 @@ const LeftBar = () => {
                 session && <LeftBarNavLink title={"Bookmarks"} Icon={FaRegBookmark} linkTo={`/profile/${session.user!.id}/bookmarks`}/>
               }
               {
-                session && <LeftBarNavLink title={"Logout"} Icon={BiLogOut} linkTo="/api/auth/signout" />
+                session && 
+
+                <div className="flex items-center space-x-4 hover:cursor-pointer rounded-3xl hover:bg-zinc-700 py-2 px-2" onClick={(e) => signOut()}>
+                  <BiLogOut size={30} />
+                  <h1>Logout</h1>
+                </div>
               }
               {
                 !session && 
