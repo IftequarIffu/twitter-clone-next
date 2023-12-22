@@ -5,21 +5,22 @@ import axios from "axios";
 import { createComment } from "../actions/comments";
 import { FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
+import { string } from "zod";
 
 
-interface LoginModalProps {
+interface SignInModalProps {
   isOpen: boolean;
   onClose: () => void;
+  setScreen: (screenType: string) => void;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
+const SignInContentInAuthModal: React.FC<SignInModalProps> = ({ isOpen, onClose, setScreen }) => {
 
-  const [replytext, setReplyText] = useState("")
 
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState<undefined | string>()
+  const [password, setPassword] = useState<undefined | string>()
 
-  const [screen, setScreen] = useState("signin")
+//   const [screen, setScreen] = useState("signin")
   
   const handleInputClick = (event: React.MouseEvent<HTMLInputElement>) => {
     // Stop the click event propagation to prevent the modal from closing
@@ -49,7 +50,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
       onClick={onClose}
     >
       <div className="flex items-center justify-center min-h-screen ">
-        <div className="absolute bg-black w-full max-w-xl p-4 rounded-3xl pb-16">
+        <div className="absolute bg-black w-full max-w-xl p-4 rounded-3xl pb-16" onClick={(e) => e.stopPropagation()}>
           <div className="flex justify-between items-center mb-4">
             <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
               <svg
@@ -75,15 +76,17 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
             <h1 className="text-3xl font-bold mb-6">Sign in to X</h1>
           <input
             className="w-full bg-black text-white border p-2 rounded-md focus:outline-none overflow-y-auto focus:border-primary resize-none"
-            placeholder="Username"
-            // value={"abcd"}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             onClick={handleInputClick}
           ></input>
           <input
             className="w-full bg-black text-white border p-2 rounded-md focus:outline-none overflow-y-auto focus:border-primary resize-none"
             placeholder="Password"
-            // value={"abcd"}
+            type="password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             onClick={handleInputClick}
           ></input>
@@ -114,4 +117,4 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
   );
 };
 
-export default LoginModal;
+export default SignInContentInAuthModal;

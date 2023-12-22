@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-
+import { useState } from "react";
 import React from "react";
 import { FaXTwitter } from "react-icons/fa6";
 import { GoHome } from "react-icons/go";
@@ -9,7 +9,7 @@ import { FaRegBookmark } from "react-icons/fa";
 import { BiEnvelope, BiDotsHorizontalRounded, BiLogOut, BiLogIn } from "react-icons/bi";
 import { HiOutlineUser } from "react-icons/hi2";
 import { RxAvatar } from "react-icons/rx";
-import LoginModal from "./LoginModal";
+import AuthModal from "./AuthModal";
 import { useSession } from "next-auth/react";
 import LeftBarNavLink from "./LeftBarNavLink";
 
@@ -39,6 +39,16 @@ const LeftBar = () => {
   ];
 
   const {status, data:session}  = useSession()
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="w-3/12 z-10 sticky top-0 h-screen min-h-full  flex justify-center p-4">
@@ -96,6 +106,10 @@ const LeftBar = () => {
         }
         
       </div>
+      <AuthModal
+           isOpen={isModalOpen}
+           onClose={handleCloseModal} 
+      />
     </div>
   );
 };
