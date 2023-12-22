@@ -72,7 +72,12 @@ const LeftBar = () => {
                 session && <LeftBarNavLink title={"Logout"} Icon={BiLogOut} linkTo="/api/auth/signout" />
               }
               {
-                !session && <LeftBarNavLink title={"Login"} Icon={BiLogIn} linkTo="/api/auth/signin"/>
+                !session && 
+
+                <div className="flex items-center space-x-4 hover:cursor-pointer rounded-3xl hover:bg-zinc-700 py-2 px-2" onClick={handleOpenModal}>
+                  <BiLogIn size={30} />
+                  <h1>Login</h1>
+                </div>
               }
               {
                 session && <Link href={"/new-post"}>
@@ -107,8 +112,8 @@ const LeftBar = () => {
         
       </div>
       <AuthModal
-           isOpen={isModalOpen}
-           onClose={handleCloseModal} 
+           isModalOpen={isModalOpen}
+           handleCloseModal={handleCloseModal} 
       />
     </div>
   );

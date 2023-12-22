@@ -11,11 +11,11 @@ import SignUpContentInAuthModal from "./SignUpContentInAuthModal";
 
 
 interface AuthModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isModalOpen: boolean;
+  handleCloseModal: () => void;
 }
 
-const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
+const AuthModal: React.FC<AuthModalProps> = ({ isModalOpen, handleCloseModal }) => {
 
   const [replytext, setReplyText] = useState("")
 
@@ -24,15 +24,15 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
 
   const [screen, setScreen] = useState<"signin" | "signup">("signin")
 
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  // const [isModalOpen, setIsModalOpen] = useState(true);
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
+  // const handleOpenModal = () => {
+  //   setIsModalOpen(true);
+  // };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  // const handleCloseModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
   
   const handleInputClick = (event: React.MouseEvent<HTMLInputElement>) => {
