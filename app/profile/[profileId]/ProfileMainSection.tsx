@@ -16,12 +16,12 @@ const ProfileMainSection = ({myTweets, likedTweets, repliedTweets }: {myTweets: 
 
   const { status, data: session } = useSession();
 
-  if(selectedTab === "posts")
-    console.log("My tweets:", myTweets)
-  else if(selectedTab === "likes")
-    console.log("My liked tweets:", likedTweets)
-  else if(selectedTab === "replies")
-    console.log("My replied tweets:", repliedTweets)
+  // if(selectedTab === "posts")
+  //   console.log("My tweets:", myTweets)
+  // else if(selectedTab === "likes")
+  //   console.log("My liked tweets:", likedTweets)
+  // else if(selectedTab === "replies")
+  //   console.log("My replied tweets:", repliedTweets)
 
   return (
     <div>

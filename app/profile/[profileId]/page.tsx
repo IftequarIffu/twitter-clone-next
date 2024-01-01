@@ -6,6 +6,9 @@ import prisma from "@/prisma/client";
 import NavList from "./NavList";
 import ProfileMainSection from "./ProfileMainSection";
 import { Like, Post as PostType } from "@prisma/client";
+import Image from "next/image";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/auth/authOptions";
 
 const UserProfilePage = async({
   params: { profileId },
@@ -14,6 +17,7 @@ const UserProfilePage = async({
 }) => {
 
 
+  const session  = await getServerSession(authOptions)
   const myTweets = await prisma.post.findMany({
         where: {
           userId: profileId,
@@ -80,10 +84,25 @@ const UserProfilePage = async({
           </div>
         </div>
       </div>
-      <div className="bg-zinc-800 h-48"></div>
+      <div className="relative mb-8">
+        <div className="bg-zinc-800 h-48 "></div>
+        <Image className="rounded-full absolute ms-3 top-[160px] object-fit:cover w-15 h-15" 
+        width={60} 
+        height={60} 
+        src="https://source.unsplash.com/random/160x160" alt="Rounded avatar" 
+        style={{objectFit: "fill"}} 
+        />
 
+      </div>
       <div className="p-4">
-        <h1 className="text-xl font-bold">iffu</h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-xl font-bold">iffu</h1>
+          {
+            session  && session.user.id === profileId && 
+
+            <button className="rounded-full xl border border-slate-800 px-4 py-2  hover:border-primary hover:text-primary">Edit Profile</button>
+          }
+        </div>
         <h1 className="font-thin">@IftequarAhmed</h1>
         <p className="mt-4 font-light text-sm">
           Software Engineer at Deloitte | Talks about Web3, Software Engineering
