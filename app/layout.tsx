@@ -4,6 +4,7 @@ import "./globals.css";
 import AuthProvider from "./auth/AuthProvider";
 import LeftBar from "./_components/LeftBar";
 import RightBar from "./_components/RightBar";
+import { EdgeStoreProvider } from "./edgestore/edgestore";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <EdgeStoreProvider>
       <AuthProvider>
+        
         <body className={inter.className}>
           <div className="w-full h-full flex items-center justify-center">
             <div className="max-w-screen-xl w-full h-full  flex">
@@ -31,7 +34,9 @@ export default function RootLayout({
             </div>
           </div>
         </body>
+        
       </AuthProvider>
+      </EdgeStoreProvider>
     </html>
   );
 }
