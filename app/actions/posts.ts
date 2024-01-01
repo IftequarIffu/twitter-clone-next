@@ -46,19 +46,34 @@ const getPostById = async(postId: string) => {
 }
 
 
-const createPost = async(body: string) => {
+const createPost = async(body: string, imageUrl?: string) => {
 
     try {
         const session = await getServerSession(authOptions)
         const loggedInUserId = session?.user.id
-        const newPost = await prisma.post.create({
-            data: {
-                body: body,
-                userId: loggedInUserId
-            }
-        })
-        return newPost
+
+        if(imageUrl){
+            const newPost = await prisma.post.create({
+                data: {
+                    body: body,
+                    userId: loggedInUserId,
+                    imageUrl: imageUrl
+                }
+            })
+
+            return newPost
+        }
+        else{
+            const newPost = await prisma.post.create({
+                data: {
+                    body: body,
+                    userId: loggedInUserId
+                }
+            })
+            return newPost
+        }
       } catch (error) {
+        // console.log(error)
         throw new Error("error");
       }
       finally{

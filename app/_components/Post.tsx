@@ -14,6 +14,7 @@ import { FaBookmark } from "react-icons/fa";
 import { likeAPost, unlikeAPost } from "../actions/likes";
 import { bookmarkAPost, unbookmarkAPost } from "../actions/bookmarks";
 import { PostType } from "../types/PrismaTypes";
+import Image from "next/image";
 
 const Post = ({
   post,
@@ -95,7 +96,9 @@ const Post = ({
             <Link href={`/posts/${post.id}`}>
               <div className="break-all">{post?.body}</div>
             </Link>
-
+              {
+                post.imageUrl && <Image src={post.imageUrl} className="rounded-xl mt-4" height={800} width={800} alt="postImage"/>
+              }
             <div className="mt-4 flex justify-start space-x-8 items-center text-zinc-500">
               <div
                 className="flex space-x-2 items-center hover:text-primary hover:cursor-pointer"

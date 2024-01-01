@@ -72,6 +72,7 @@ model Post {
   id        String     @id @default(cuid())
   body      String     @db.Text
   userId    String
+  imageUrl  String?
   comments  Comment[]
   likes     Like[]
   bookmarks Bookmark[]
