@@ -100,7 +100,7 @@ const UserProfilePage = async({
           {
             session  && session.user.id === profileId && 
 
-            <button className="rounded-full xl border border-slate-800 px-4 py-2  hover:border-primary hover:text-primary">Edit Profile</button>
+            <button className="rounded-full xl border border-slate-800 px-4 py-2 font-normal  hover:border-primary hover:text-primary">Edit Profile</button>
           }
         </div>
         <h1 className="font-thin">@IftequarAhmed</h1>
