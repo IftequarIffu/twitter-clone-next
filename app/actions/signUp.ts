@@ -1,14 +1,15 @@
 'use server'
 import prisma from "@/prisma/client"
 
-const signUp = async (username: string, password: string, email: string) => {
+const signUp = async (username: string, password: string, email: string, name: string) => {
 
     try {
         const newUser = await prisma.user.create({
             data: {
                 username: username,
                 password: password,
-                email: email
+                email: email,
+                name: name
             }
         })
         if(!newUser){

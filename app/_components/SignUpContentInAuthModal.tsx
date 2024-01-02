@@ -22,6 +22,7 @@ const SignUpContentInAuthModal: React.FC<SignUpModalProps> = ({ isOpen, onClose,
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [name, setName] = useState("")
 
 //   const [screen, setScreen] = useState("signin")
   
@@ -40,7 +41,7 @@ const SignUpContentInAuthModal: React.FC<SignUpModalProps> = ({ isOpen, onClose,
       // console.log(response.data)
       // window.location.reload()
       // await createComment(replytext)
-      const user = await signUp(username, password, email)
+      const user = await signUp(username, password, email, name)
       if(!user){
         console.log("User not created")
         return 
@@ -85,6 +86,14 @@ const SignUpContentInAuthModal: React.FC<SignUpModalProps> = ({ isOpen, onClose,
           </div>
           <div className="w-2/3 flex flex-col align-center justify-center mx-auto space-y-4 mt-12">
             <h1 className="text-3xl font-bold mb-6">Create an account on X</h1>
+            <input
+            type="text"
+            className="w-full bg-black text-white border p-2 rounded-md focus:outline-none overflow-y-auto focus:border-primary resize-none"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onClick={handleInputClick}
+          ></input>
             <input
             type="text"
             className="w-full bg-black text-white border p-2 rounded-md focus:outline-none overflow-y-auto focus:border-primary resize-none"
