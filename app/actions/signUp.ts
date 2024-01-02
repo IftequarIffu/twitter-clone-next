@@ -1,5 +1,6 @@
 'use server'
 import prisma from "@/prisma/client"
+import bcrypt from 'bcryptjs'
 
 const signUp = async (username: string, password: string, email: string, name: string) => {
 
@@ -7,7 +8,7 @@ const signUp = async (username: string, password: string, email: string, name: s
         const newUser = await prisma.user.create({
             data: {
                 username: username,
-                password: password,
+                password: bcrypt.hashSync(password),
                 email: email,
                 name: name
             }

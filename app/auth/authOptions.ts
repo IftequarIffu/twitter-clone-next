@@ -3,6 +3,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@/prisma/client";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from 'bcryptjs'
 
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
@@ -54,7 +55,7 @@ export const authOptions: NextAuthOptions = {
             return null
           }
 
-          if(user.password !== password){
+          if(!bcrypt.compareSync(password, user.password as string)){
             return null
           }
 
