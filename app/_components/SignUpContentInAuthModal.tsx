@@ -6,6 +6,7 @@ import { createComment } from "../actions/comments";
 import { FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import signUp from "../actions/signUp";
 
 
 interface SignUpModalProps {
@@ -39,6 +40,14 @@ const SignUpContentInAuthModal: React.FC<SignUpModalProps> = ({ isOpen, onClose,
       // console.log(response.data)
       // window.location.reload()
       // await createComment(replytext)
+      const user = await signUp(username, password, email)
+      if(!user){
+        console.log("User not created")
+        return 
+      }
+      else{
+        console.log("User created")
+      }
 
     } catch (error) {
       console.log(error)

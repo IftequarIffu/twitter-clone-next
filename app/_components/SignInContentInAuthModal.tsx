@@ -37,6 +37,12 @@ const SignInContentInAuthModal: React.FC<SignInModalProps> = ({ isOpen, onClose,
       // console.log(response.data)
       // window.location.reload()
       // await createComment(replytext)
+      const res = await signIn("credentials", {
+        email: email,
+        password: password
+      })
+
+      
 
     } catch (error) {
       console.log(error)

@@ -2,6 +2,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@/prisma/client";
 import { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
@@ -19,6 +20,47 @@ export const authOptions: NextAuthOptions = {
           };
         },
       }),
+      CredentialsProvider({
+        name: 'credentials',
+        credentials: {
+          username: {
+            label: "Username",
+            type: "text",
+            placeholder: "JSmith"
+          },
+          password: {
+            label: "Password",
+            type: "password"
+          }
+        },
+        async authorize(credentials, req) {
+          // Add logic here to look up the user from the credentials supplied
+          if(!credentials){
+            return null
+          }
+
+          const { email, password } = credentials as unknown as {
+            email: string;
+            password: string;
+          };
+
+          const user = await prisma.user.findUnique({
+            where: {
+              email: email
+            }
+          })
+
+          if(!user){
+            return null
+          }
+
+          if(user.password !== password){
+            return null
+          }
+
+          return user;
+          }
+      })
     ],
     session: {
       strategy: "jwt",
