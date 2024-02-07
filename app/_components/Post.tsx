@@ -97,7 +97,7 @@ const Post = ({
               <div className="break-all">{post?.body}</div>
             </Link>
               {
-                post.imageUrl && <Image src={post.imageUrl} className="rounded-xl mt-4" height={800} width={800} alt="postImage"/>
+                post.imageUrl && <Image src={post.imageUrl} className="rounded-xl mt-4" height={800} width={800} alt="postImage" priority/>
               }
             <div className="mt-4 flex justify-start space-x-8 items-center text-zinc-500">
               <div
