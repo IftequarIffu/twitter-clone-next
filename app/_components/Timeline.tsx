@@ -41,5 +41,4 @@ const Timeline = async() => {
     </div>
   );
 };
-export const revalidate = 0;
 export default Timeline;

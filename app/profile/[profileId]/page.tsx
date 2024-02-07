@@ -79,7 +79,7 @@ const UserProfilePage = async({
           {/* Go Back Button Here */}
           <GoBackButton />
           <div>
-            <h1 className="font-bold">iffu</h1>
+            <h1 className="font-bold">{session!.user.name}</h1>
             <h1 className="text-xs font-thin">{myTweets.length} posts</h1>
           </div>
         </div>
