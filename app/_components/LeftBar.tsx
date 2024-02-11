@@ -58,7 +58,7 @@ const LeftBar = () => {
 
         {/* Top Section of Logo + Nav + New Post Button */}
         <div>
-          <Link href={"/"} className="inline-block"><FaXTwitter size={30} /></Link>
+          <Link prefetch href={"/"} className="inline-block"><FaXTwitter size={30} /></Link>
           
             <div className="flex flex-col space-y-4 mt-6 ">
               {NavList.map((item) => (

@@ -2,12 +2,11 @@
 
 import React from "react";
 import { BiMessageRounded } from "react-icons/bi";
-import { FaRetweet, FaRegBookmark, FaBook } from "react-icons/fa6";
+import {  FaRegBookmark } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import TweetInputBox from "./TweetInputBox";
 import ReplyModal from "./ReplyModal";
 import { FaHeart } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa";
@@ -93,11 +92,11 @@ const Post = ({
 
         <div className="flex">
           <div className="p-4 ps-2 text-justify overflow-hidden">
-            <Link href={`/posts/${post.id}`}>
+            <Link href={`/posts/${post.id}`} prefetch>
               <div className="break-all">{post?.body}</div>
             </Link>
               {
-                post.imageUrl && <Image src={post.imageUrl} className="rounded-xl mt-4" height={800} width={800} alt="postImage" priority/>
+                post.imageUrl && <Image src={post.imageUrl} className="rounded-xl mt-4" height={800} width={800} alt="postImage" priority />
               }
             <div className="mt-4 flex justify-start space-x-8 items-center text-zinc-500">
               <div
