@@ -97,9 +97,6 @@ const LeftBar = () => {
             </div>
             {/* <LoginModal /> */}
         </div>
-
-
-        {/* Bottom Account section */}
         
         
       </div>
