@@ -65,7 +65,7 @@ const LeftBar = () => {
                   <LeftBarNavLink key={item.title} title={item.title} Icon={item.Icon}/>
               ))}
               {
-                session && <LeftBarNavLink title={"Profile"} Icon={HiOutlineUser} linkTo={`/profile/${session.user!.id}`}/>
+                session && <LeftBarNavLink title={"Profile"} Icon={HiOutlineUser} linkTo={`/profile/me`}/>
               }
               {
                 session && <LeftBarNavLink title={"Bookmarks"} Icon={FaRegBookmark} linkTo={`/profile/${session.user!.id}/bookmarks`}/>
@@ -100,22 +100,7 @@ const LeftBar = () => {
 
 
         {/* Bottom Account section */}
-        {
-          session && (
-            <div className="flex items-center space-x-2">
-          <div>
-            <RxAvatar size={43} />
-          </div>
-          <div className="flex-col items-center">
-            <h1 className="">{session ? session.user.name : "iffu"}</h1>
-            <p className="font-thin text-sm text-zinc-300 tracking-wider">@{session.user.name}</p>
-          </div>
-          <div className="ps-6">
-            <BiDotsHorizontalRounded  size={20}/>
-          </div>
-        </div>
-          )
-        }
+        
         
       </div>
       <AuthModal
