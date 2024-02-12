@@ -13,19 +13,8 @@ interface AuthModalProps {
 
 const AuthModal: React.FC<AuthModalProps> = ({ isModalOpen, handleCloseModal }) => {
 
-  const [replytext, setReplyText] = useState("")
-
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
 
   const [screen, setScreen] = useState<"signin" | "signup">("signin")
-
-  
-  const handleInputClick = (event: React.MouseEvent<HTMLInputElement>) => {
-    // Stop the click event propagation to prevent the modal from closing
-    event.stopPropagation();
-  };
-
 
   if(screen === "signin")
     return (
