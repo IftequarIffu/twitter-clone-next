@@ -1,11 +1,7 @@
 // LoginModal.tsx
 'use client'
 import React, { useState } from "react";
-import axios from "axios";
-import { createComment } from "../actions/comments";
 import { FaXTwitter } from "react-icons/fa6";
-import Link from "next/link";
-import { string } from "zod";
 import { signIn } from "next-auth/react"
 
 interface SignInModalProps {
@@ -19,8 +15,6 @@ const SignInContentInAuthModal: React.FC<SignInModalProps> = ({ isOpen, onClose,
 
   const [email, setEmail] = useState<undefined | string>()
   const [password, setPassword] = useState<undefined | string>()
-
-//   const [screen, setScreen] = useState("signin")
   
   const handleInputClick = (event: React.MouseEvent<HTMLInputElement>) => {
     // Stop the click event propagation to prevent the modal from closing
@@ -30,19 +24,10 @@ const SignInContentInAuthModal: React.FC<SignInModalProps> = ({ isOpen, onClose,
   const loginMethod = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 
     try {
-      // const data = {
-      //   comment: replytext
-      // }
-      // const response = await axios.post(`/api/tweets/${postId}/comments`, data)
-      // console.log(response.data)
-      // window.location.reload()
-      // await createComment(replytext)
       const res = await signIn("credentials", {
         email: email,
         password: password
       })
-
-      
 
     } catch (error) {
       console.log(error)
